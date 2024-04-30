@@ -1,6 +1,6 @@
 # Stage 1: install dependencies
 FROM node:latest as deps
-RUN addgroup -g 10014 choreo && \
+RUN addgroup -gid 10014 choreo && \
     adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
 USER 10014
 

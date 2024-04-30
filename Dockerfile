@@ -2,9 +2,9 @@
 FROM node:18-alpine as deps
 
 # Create a new user with UID 10014
-RUN addgroup -g 10014 choreo && \
-    adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
-USER 10014
+# RUN addgroup -g 10014 choreo && \
+##    adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
+## USER 10014
 
 ## RUN apk add --no-cache libc6-compat
 ## RUN mkdir /app

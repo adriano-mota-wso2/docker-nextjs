@@ -1,12 +1,13 @@
 # Stage 1: install dependencies
-FROM node:latest AS deps
-RUN addgroup -g 10014 choreo && \
-    adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
+FROM node:latest as deps
+RUN addgroup -g 10014 choreo && adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
 USER 10014
 
+RUN apk add --no-cache g++ make py3-pip libc6-compat
 RUN mkdir /app
 WORKDIR /app
 COPY package*.json .
+
 ARG NODE_ENV
 ENV NODE_ENV $NODE_ENV
 RUN npm install

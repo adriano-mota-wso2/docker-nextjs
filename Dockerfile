@@ -3,7 +3,7 @@ FROM node:latest as deps
 
 RUN mkdir /app
 WORKDIR /app
-COPY package*.json .
+COPY package*.json ./
 
 # Create a new user with UID 10014
 RUN addgroup -g 10014 choreo && \

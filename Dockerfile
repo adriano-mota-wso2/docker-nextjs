@@ -1,5 +1,8 @@
 # Stage 1: install dependencies
-FROM node:17-alpine AS deps
+FROM node:latest AS deps
+RUN addgroup -g 10014 choreo && \
+    adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
+USER 10014
 WORKDIR /app
 COPY package*.json .
 ARG NODE_ENV
@@ -7,7 +10,7 @@ ENV NODE_ENV $NODE_ENV
 RUN npm install
 
 # Stage 2: build
-FROM node:17-alpine AS builder
+FROM node:latest AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY src ./src
@@ -16,7 +19,7 @@ COPY package.json next.config.js jsconfig.json ./
 RUN npm run build
 
 # Stage 3: run
-FROM node:17-alpine
+FROM node:latest
 WORKDIR /app
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public

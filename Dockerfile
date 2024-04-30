@@ -1,14 +1,14 @@
 # Stage 1: install dependencies
 FROM node:18-alpine as deps
-RUN addgroup -g 10014 choreo && \
-    adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
-USER 10014
 
 ## RUN apk add --no-cache libc6-compat
 RUN mkdir /app
 WORKDIR /app
 COPY package*.json ./
-EXPOSE 3000
+
+# Create a new user with UID 10014
+RUN addgroup -g 10014 choreo && \
+    adduser  --disabled-password  --no-create-home --uid 10014 --ingroup choreo choreouser
 
 ARG NODE_ENV
 ENV NODE_ENV $NODE_ENV
